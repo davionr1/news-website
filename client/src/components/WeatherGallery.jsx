@@ -17,9 +17,9 @@ const WeatherGallery = (handleLocation) => {
             const location = `${city_ascii} ${admin_name} ${iso3}`;
             // console.log(location, "kk");
             // console.log(weatherItem, "j");
-//change request back to location
+
             const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-            const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"norwalk"?unitGroup=us&key=${API_KEY}`);
+            const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=${API_KEY}`);
             const data = await response.json();
 
             setLocationWeather(data);

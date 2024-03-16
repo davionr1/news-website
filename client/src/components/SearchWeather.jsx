@@ -7,7 +7,7 @@ import WeatherGallery from "./WeatherGallery";
 function SearchWeather() {
 
     const [locationsData, setLocationsData] = useState([]);
-    const [selectedValue, setSelectedValue] = useState('norwalk');
+    const [selectedValue, setSelectedValue] = useState('');
 
     useEffect(() => {
 
