@@ -8,15 +8,13 @@ import React from "react";
 const WeatherGallery = (handleLocation) => {
     const [locationWeather, setLocationWeather] = useState([])
     const weatherItem = handleLocation.handleLocation;
-    //look into why the 3rd party request is not sending anything back
+
     useEffect(() => {
         async function getWeatherDetails() {
             if (!weatherItem) return;
 
             const { city_ascii, admin_name, iso3 } = weatherItem;
             const location = `${city_ascii} ${admin_name} ${iso3}`;
-            // console.log(location, "kk");
-            // console.log(weatherItem, "j");
 
             const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
             const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=${API_KEY}`);
@@ -24,13 +22,11 @@ const WeatherGallery = (handleLocation) => {
 
             setLocationWeather(data);
             console.log(data, "qq");
-            // console.log(locationWeather, "tttttttt");
         }
         getWeatherDetails()
     }, [handleLocation])
 
     function createWeatherItem() {
-    //   const { resolvedAddress, currentConditions, temp, description} = locationWeather
         
             if (locationWeather) {
                 return (
