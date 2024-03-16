@@ -6,11 +6,11 @@ const port = process.env.PORT
 
 const Pool = require('pg').Pool
 const pool = new Pool({
-    host: pg_user,
-    user: pg_host,
-    database: pg_db,
-    password: pg_pass,
-    port: port,
+    host: "localhost",
+      user: "postgres",
+      database: "weather_app",
+      password: "famshaw",
+      port: 5432,
 });
 
 const getWeatherInfo = () => {

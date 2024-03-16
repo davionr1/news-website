@@ -1,11 +1,16 @@
+
 /* CSS for weather items */
-.section_temperature{
+.section_temperature {
     position: sticky;
     width: auto;
     padding: 2em;
-    margin:2em;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin: 2em;
+    margin-bottom: 0px;
 }
-.temperature{
+
+.temperature {
     text-align: center;
 }
 
@@ -15,15 +20,15 @@
     gap: 2rem;
     position: sticky;
     color: white;
-width: auto;
-    margin:1em;
+    width: auto;
+    margin: 1em;
 }
 
-.section_inputs{
+.section_inputs {
     position: unset;
 }
 
-.css-b62m3t-container{
+.css-b62m3t-container {
     width: 100%;
     color: black;
 }
@@ -39,6 +44,7 @@ h2 {
     justify-content: space-between;
     background-color: var(--section-overlay);
     padding: 2rem;
+    padding-bottom: 16px;
     border-radius: 0.4rem;
 
 }
@@ -57,16 +63,19 @@ h2 {
     text-transform: capitalize;
 }
 
-.card-suntime{
+.card-suntime {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 2rem;
+    padding-top: 8px;
+    padding-bottom: 8px;
     border-radius: 0.4rem;
 }
-.card-suntime.description_card-icon{
+
+.card-suntime.description_card-icon {
     width: 100%;
     display: row;
     flex-direction: row;
@@ -79,6 +88,6 @@ h2 {
 @media screen and (max-width: 1024px) {
     .section_descriptions {
         grid-template-columns: 1fr 1fr;
-
+        
     }
 }

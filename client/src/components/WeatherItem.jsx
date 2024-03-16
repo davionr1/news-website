@@ -5,53 +5,23 @@ import { useEffect } from "react";
 import WeatherGallery from './WeatherGallery';
 
 
-function WeatherItem(props) {
+const WeatherItem = ({ handleLocation }) => {
+    const [locationWeather, setLocationWeather] = useState(null);
 
-    let [locationWeather, setLocationWeather] = useState('')
+    // useEffect(() => {
+    //     const fetchWeatherData = async () => {
+    //         if (!handleLocation) return;
+    //         const { city_ascii, admin_name, iso3 } = handleLocation;
+    //         const location = `${city_ascii} ${admin_name} ${iso3}`;
+    //         console.log(handleLocation, "jjjjjjjjjjj");
+    //         const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+    //         const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=${API_KEY}`);
+    //         const data = await response.json();
+    //         setLocationWeather(data);
+    //     };
 
-    console.log(props.handleLocation);
-
-    function locationName() {
-        if (props.handleLocation.city_ascii !== null) {
-            const city =
-                (props.handleLocation.city_ascii + ' ' + props.handleLocation.admin_name + ' ' + props.handleLocation.iso3);
-            console.log("Location Name:", city);
-            return city;
-        }
-    }
-    let location = locationName()
-
-    // const locationFunc = async () =>{
-    //     const result = await axios(name)
-    //     return result
-    // }
-
-    // let location = locationFunc()
-
-    const API_KEY = process.env.REACT_APP_WEATHER_API_KEY
-    const WEATHER_HEAD = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
-    const WEATHER_MIDDLE = "?unitGroup=us&key=";
-
-    useEffect(() => {
-        if (location !== 'undefined') {
-            const fetchData = async () => {
-                const response = await fetch(
-                    WEATHER_HEAD + 'norwalk' + WEATHER_MIDDLE + API_KEY
-                );
-                const resData = await response.json();
-                if (resData) {
-                     console.log([resData], "herteeeeeeeeeeeeeeeee")
-                    setLocationWeather([resData]);
-                    console.log('data', locationWeather)
-                } else {
-                    console.log("ERROR");
-                }
-            };
-            fetchData();
-        }else{
-            console.log("No Location Name Selected")
-        }
-    }, [location])
+    //     fetchWeatherData();
+    // }, [handleLocation]);
 
     console.log('Location Weather: ',locationWeather)
     // console.log('Location weather length:', location.length)

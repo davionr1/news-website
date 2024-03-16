@@ -2,57 +2,47 @@ import { useState } from "react";
 import WeatherItem from "./WeatherItem";
 import { useEffect } from "react";
 import AsyncSelect from "react-select/async"
+import WeatherGallery from "./WeatherGallery";
 
 function SearchWeather() {
 
     const [locationsData, setLocationsData] = useState([]);
-    const [selectedValue, setSelectedValue] = useState('undefined');
-    
+    const [selectedValue, setSelectedValue] = useState('norwalk');
+
     useEffect(() => {
-        getLocations();
+
+         getLocations(selectedValue);
     }, [])
 
-    function getLocations() {
-        fetch('http://localhost:4000/locations')
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                setLocationsData(data)
-            });
+
+
+    async function getLocations(searchValue) {
+        // console.log(selectedValue,"h");
+        
+        const weatherResponse = await fetch(`http://localhost:4000/locations?value=${searchValue}`)
+        const weatherData = await weatherResponse.json()
+        
+        // console.log(weatherData);
+        setLocationsData(weatherData)
     }
-
-    const API_KEY = process.env.REACT_APP_WEATHER_API_KEY
-    const WEATHER_HEAD = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
-    const WEATHER_MIDDLE = "?unitGroup=us&key=";
-
-    const test = {}
-
-    
-
-
 
     const loadLocations = (searchValue, callback) => {
         setTimeout(() => {
-            console.log(locationsData, "look");
-            // console.log("Location Data: ",locationsData)
+            // console.log("Location Data: ", locationsData)
             const filteredLocations = locationsData.filter((option) => {
                 // console.log("option: ",(option['city_ascii']));
                 return option.city_ascii.toLowerCase().includes(searchValue.toLowerCase())
             }
             );
-            console.log('loadLocations', searchValue, filteredLocations);
+            console.log('loadLocations', searchValue, selectedValue, filteredLocations);
             callback(filteredLocations)
+            
         }, 500)
     }
 
-    const handleChange = (selectedOption) => {
-        if (selectedOption === "undefined") {
-            return null
-        } else {
-            setSelectedValue(selectedOption);
-            console.log("handleChange", selectedOption);
-        }
+    const handleChange = (searchValue) => {
+        console.log(searchValue, "gggde");
+        setSelectedValue(searchValue);
     };
 
     return (
@@ -62,16 +52,17 @@ function SearchWeather() {
                     <AsyncSelect
                         // cacheOptions
                         // defaultOptions
-                        // value={selectedValue}
+                        value={selectedValue}
                         getOptionLabel={e => e.city_ascii + ', ' + e.admin_name + ', ' + e.iso3}
                         // getOptionValue={e =>e.id}
                         loadOptions={loadLocations}
                         // onInputChange={handleInputChange}
                         onChange={handleChange}
+                        // onInputChange={getLocations}
                     />
                 </div>
             </div>
-            <WeatherItem handleLocation={selectedValue} />
+            {selectedValue && <WeatherGallery handleLocation={selectedValue} />}
         </div>
 
     )

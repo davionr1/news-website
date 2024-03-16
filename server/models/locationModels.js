@@ -6,24 +6,34 @@ const pg_pass = process.env.PG_PASS
 const port = process.env.PORT
 const Pool = require('pg').Pool
 const pool = new Pool({
-    host: pg_user,
-    user: pg_host,
-    database: pg_db,
-    password: pg_pass,
-    port: port,
+    host: "localhost",
+      user: "postgres",
+      database: "weather_app",
+      password: "famshaw",
+      port: 5432,
 });
+const getLocations = (value) => {
 
-const getLocations = () => {
-    return new Promise(function (resolve, reject) {
-        pool.query(`SELECT * from locations`, (error, results) => {
-            if (results) {
-                resolve(results.rows);
-            } else {
-                reject(error)
-            }
-        })
-    })
-}
+    return new Promise((resolve, reject) => {
+        // if (!value) {
+        //     reject("No value provided");
+        //     return;
+        // }
+
+        pool.query('SELECT * FROM locations WHERE city ILIKE $1', [`${value}%`], (error, result) => {
+            // console.log(pool.query);
+                resolve(result.rows);
+                
+                
+            // if (error) {
+            //     reject(error);
+            // } else {
+            //     console.log(pool.query);
+            //     resolve(result.rows);
+            // }
+        });
+    });
+};
 
 module.exports = {
     getLocations

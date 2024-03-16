@@ -17,16 +17,17 @@ app.use(function (req, res, next) {
 //     res.status(200).send('Hello World!');
 //   })
 
-app.get('/locations', (req, res) => {
-    
-    locations_model.getLocations()
-        .then(response => {
-            res.status(200).send(response);
-        })
-        .catch(error => {
-            res.status(500).send(error);
-        })
-        
+app.get('/locations', async (req, res) => {
+    const { value } = req.query
+    try {
+        const response = await locations_model.getLocations(value)
+
+        res.status(200).send(response)
+    }
+    catch(error) {
+        console.error(error)
+        res.status(500).send(error, "could not find the weather")
+    }
 })
 
 app.get('/', (req, res) => {
